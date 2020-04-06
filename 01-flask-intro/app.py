@@ -7,11 +7,19 @@ app = Flask(__name__)
 # a route maps a URL to a python function
 @app.route('/')
 def hello():
-    return "hello world"
+    return "<h1>hello world</h1><ul><li>First Name:Tan Ah Kow</li></ul>"
 
 @app.route('/about')
 def foobar():
     return "About Me"
+
+@app.route('/fruits')
+def fruits():
+    result=""
+    with open('data.txt') as fp:
+        for l in fp:
+            result += l
+    return result
 
 
 
