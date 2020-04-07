@@ -22,8 +22,6 @@ def process_login_form():
     firstname = request.form.get('firstname')
     lastname = request.form.get('lastname')
     return render_template('finished_login.template.html', firstname=firstname, lastname=lastname )
-    return "Data recieved"
-
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':
