@@ -2,12 +2,12 @@ import csv
 
 
 def add_new_employee(employee_id, first_name, last_name, title, salary):
-    with open('sample_hrm.csv', 'a') as fp:
+    with open('sample_hrm.csv', 'a', newline="\n") as fp:
         writer = csv.writer(fp, delimiter=',')
         writer.writerow([employee_id, first_name, last_name, title, salary])
 
 def write_data(database):
-    with open('sample_hrm.csv', 'w') as fp:
+    with open('sample_hrm.csv', 'w', newline="\n") as fp:
         writer = csv.writer(fp, delimiter=",")
         writer.writerow(['id','first_name','last_name','title','salary'])
         for eachEntry in database:
