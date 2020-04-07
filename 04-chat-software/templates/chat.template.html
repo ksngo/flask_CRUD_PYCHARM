@@ -1,0 +1,17 @@
+{% extends 'layout.template.html' %}
+
+{%block content%}
+<form method="POST">
+    <textarea name="message" placeholder="Type in your message"></textarea>
+    <br/>
+    <input type="submit" value="Send"/>
+</form>
+{%endblock%}
+
+{%block messages%}
+    {%for m in msg %}
+    <p>
+        {{m}}
+    </p>
+    {%endfor%}
+{%endblock%}
