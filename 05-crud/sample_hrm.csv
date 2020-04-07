@@ -3,5 +3,6 @@ id,first_name,last_name,title,salary
 3,Cindy,Loh,Manager,6000.0
 2377,a,b,Executive,1000.0
 1159,Joel,Koh,Support,3000.0
-1530,Mary,Sue,Manager,6000.0
-4377,Vadar,Darth,Manager,8000
+1530,Mary,Sue,Manager,8000
+4377,Vadar,Darth,Manager,8000.0
+7391,Ivan,Loh,Executive,2200
