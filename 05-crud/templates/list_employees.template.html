@@ -10,7 +10,9 @@
     <h1>HRM</h1>
     <ul>
         {%for e in employees %}
-        <li>{{e.first_name}} {{e.last_name}} - {{e.title}}, Salary:{{e.salary}}</li>
+        <li>{{e.first_name}} {{e.last_name}} - {{e.title}}, Salary:{{e.salary}} 
+            <a href="{{ url_for('edit_employee', id=e.id) }}">Edit</a>
+        </li>
         {%endfor%}
     </ul>
 </body>
