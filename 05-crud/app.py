@@ -58,6 +58,37 @@ def process_add_employee():
     data.add_new_employee(employee_id, first_name, last_name, title, salary)
     return redirect(url_for('display_employees'))
 
+@app.route('/confirm_delete_employee/<id>')
+def confirm_delete(id):
+
+    #1 find the index of the employee that we want to delete
+    employee_to_delete = data.find_employee_by_id(id)
+
+    return render_template('confirm_delete.template.html', employee=employee_to_delete)
+
+
+@app.route('/delete_employee/<id>', methods=['POST'])
+def delete_employee(id):
+
+    #0 load in the database
+    database = data.read_data()
+
+    #1 find the index of the employee that we want to delete
+    employee_to_delete = data.find_employee_by_id(id)
+
+    #2 remove that index from the database list
+    for index,e in enumerate(database):
+        if e['id'] == employee_to_delete['id']:
+            # update the entry in the databse
+            database[index] = employee_to_delete
+            break # break out of the loop because each id is unique
+
+    del database[index]
+
+    #3 write the whole database back to the file
+    data.write_data(database)
+
+    return redirect(url_for('display_employees'))
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':

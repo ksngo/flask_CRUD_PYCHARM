@@ -1,0 +1,11 @@
+{%extends 'layout.template.html' %}
+
+{%block content%}
+<div class="alert alert-danger">
+    Are you sure you want to delete {{employee.first_name}} {{employee.last_name}}!
+    <form method="POST" action="{{url_for('delete_employee', id=employee.id)}}">
+        <input class="btn btn-danger" type="submit" value="Confirm"/>
+    </form>
+    <a href="{{url_for('display_employees')}}" class="btn btn-primary">Cancel</a>
+</div>
+{%endblock%}
