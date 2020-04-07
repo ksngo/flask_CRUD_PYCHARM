@@ -26,11 +26,10 @@ def read_data():
 
 def find_employee_by_id(wanted_id):
     database = read_data()
-    print(type(wanted_id))
+
     # linear search algo
     for each_employee in database:
         if each_employee['id'] == int(wanted_id):
-            print("found")
             return each_employee
 
 @app.route('/')
@@ -49,10 +48,45 @@ def edit_employee(id):
     employee = find_employee_by_id(id)
     return render_template('edit_employee.template.html', employee=employee)
 
+
+@app.route('/edit_employee/<id>', methods=['POST'])
+def process_edit_employee(id):
+    
+    #1 - read in the database
+    database = read_data()
+
+    #2 - update the entry in the database
+    employee_to_update = find_employee_by_id(id)
+    employee_to_update['first_name'] = request.form.get('firstname')
+    employee_to_update['last_name'] = request.form.get('lastname')
+    employee_to_update['salary'] = request.form.get('salary')
+    employee_to_update['title'] = request.form.get('title')
+ 
+    #find the index to replace
+    for index,e in enumerate(database):
+        if e['id'] == employee_to_update['id']:
+            # update the entry in the databse
+            database[index] = employee_to_update
+            break # break out of the loop because each id is unique
+
+    #3 - overwrite the file with our current version of database
+    with open('sample_hrm.csv', 'w') as fp:
+        writer = csv.writer(fp, delimiter=",")
+        writer.writerow(['id','first_name','last_name','title','salary'])
+        for eachEntry in database:
+            employee_id = eachEntry['id']
+            first_name = eachEntry['first_name']
+            last_name = eachEntry['last_name']
+            title = eachEntry['title']
+            salary =eachEntry['salary']
+            writer.writerow([employee_id, first_name, last_name, title, salary])
+    return redirect(url_for('display_employees'))
+
+
 @app.route('/add_employee', methods=['POST'])
 def process_add_employee():
     with open('sample_hrm.csv', 'a') as fp:
-        employee_id = random.randint(5,9999)
+        employee_id = random.randint(5,9999) #we generate a random number to be the id
         first_name = request.form.get('firstname')
         last_name = request.form.get('lastname')
         title = request.form.get('title')
